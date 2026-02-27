@@ -1,0 +1,31 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: check-added-large-files
+        args: ['--maxkb=1000']
+      - id: check-case-conflict
+      - id: check-merge-conflict
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.4.0
+    hooks:
+      - id: detect-secrets
+        exclude: (package-lock\.json|README\.md)
+
+  - repo: local
+    hooks:
+      - id: no-snowflake-config
+        name: Block snowflake config files
+        entry: bash -c 'git diff --cached --name-only | grep -E "config\.toml|credentials\.json" && exit 1 || exit 0'
+        language: system
+        pass_filenames: false
+
+      - id: no-private-keys
+        name: Block private keys
+        entry: bash -c 'git diff --cached --name-only | grep -E "\.(p8|pem|key)$" && exit 1 || exit 0'
+        language: system
+        pass_filenames: false
