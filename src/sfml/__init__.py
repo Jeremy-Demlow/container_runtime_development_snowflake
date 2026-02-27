@@ -18,13 +18,14 @@ Quick Start:
 
 __version__ = "0.1.0"
 
-from sfml.remote import setup, connect, teardown
+from sfml.remote import setup, connect, disconnect, teardown
 from sfml.jobs import submit_file, submit_directory, get_job_status, list_jobs
 from sfml.session import get_session
 
 __all__ = [
     "setup",
     "connect",
+    "disconnect",
     "teardown",
     "submit_file",
     "submit_directory",
